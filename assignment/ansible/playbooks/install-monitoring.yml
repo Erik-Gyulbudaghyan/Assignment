@@ -1,0 +1,17 @@
+---
+- name: Install Prometheus & Grafana via Helm
+  hosts: jenkins
+  tasks:
+    - name: Add repos & update
+      shell: |
+        helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+        helm repo add grafana https://grafana.github.io/helm-charts
+        helm repo update
+      args:
+        creates: /tmp/helm.repos
+    - name: Deploy Prometheus
+      shell: |
+        helm upgrade --install monitoring-prometheus prometheus-community/prometheus -n monitoring --create-namespace
+    - name: Deploy Grafana (admin/admin)
+      shell: |
+        helm upgrade --install monitoring-grafana grafana/grafana -n monitoring --set adminPassword=admin

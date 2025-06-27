@@ -1,0 +1,6 @@
+---
+- name: Deploy microservice to EKS
+  hosts: jenkins
+  tasks:
+    - name: Apply manifests
+      shell: kubectl apply -f /home/{{ ansible_user }}/repo/k8s/
