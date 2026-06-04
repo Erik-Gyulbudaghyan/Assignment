@@ -3,13 +3,13 @@ from flask import Flask, jsonify
 
 app = Flask(__name__)
 
-@app.route("/")
-def index():
+@app.route("/health")
+def health():
     return jsonify({
-        "message": "Backend is running",
-        "service": "python-flask",
-        "port": os.getenv("APP_PORT", "8080")
-    })
+        "status": "ok",
+        "postgres_host": os.getenv("POSTGRES_HOST"),
+        "redis_host": os.getenv("REDIS_HOST")
+    }), 200
 
 @app.route("/health")
 def health():

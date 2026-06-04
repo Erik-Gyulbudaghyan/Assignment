@@ -1,16 +1,18 @@
-#!/usr/bin/env sh
+#!/bin/bash
+
 set -e
 
 mkdir -p certs
 
-openssl req -x509 \
+openssl req \
+  -x509 \
   -nodes \
-  -newkey rsa:2048 \
   -days 365 \
-  -keyout certs/local.key \
-  -out certs/local.crt \
-  -subj "/C=AM/ST=Yerevan/L=Yerevan/O=LocalDev/OU=Dev/CN=localhost"
+  -newkey rsa:4096 \
+  -keyout certs/server.key \
+  -out certs/server.crt \
+  -subj "/C=AM/ST=Yerevan/L=Yerevan/O=LocalLab/CN=localhost"
 
-echo "Self-signed certificate generated:"
-echo "certs/local.crt"
-echo "certs/local.key"
+echo "Certificates generated:"
+echo "certs/server.crt"
+echo "certs/server.key"
